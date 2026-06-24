@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>greymoth — live proof</title>
+<meta name="description" content="Merged pull requests into real open-source products, pulled live from GitHub. Numbers I don't control." />
+<style>
+  :root{
+    --paper:#FAF7F0; --ink:#1A1A1A; --muted:#6b6b6b; --faint:#9a958c;
+    --accent:#C8412B; --line:#1A1A1A; --hair:#dcd6ca;
+    --mono:ui-monospace,"JetBrains Mono","SFMono-Regular",Menlo,Consolas,monospace;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;line-height:1.5;padding:clamp(20px,5vw,72px);position:relative}
+  .corner{position:fixed;color:var(--accent);font-family:var(--mono);font-size:18px;font-weight:700}
+  .corner.tr{top:18px;right:18px}.corner.bl{bottom:18px;left:18px}
+  .wrap{max-width:880px;margin:0 auto}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--accent);margin-bottom:28px}
+  h1{font-size:clamp(40px,9vw,92px);line-height:.98;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+  h1 .merged{color:var(--accent)}
+  .lede{font-size:clamp(15px,2.2vw,19px);color:var(--ink);max-width:60ch;margin:14px 0 6px}
+  .sub{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+  .stats{display:flex;gap:clamp(20px,5vw,56px);margin:30px 0 8px;flex-wrap:wrap}
+  .stat .n{font-family:var(--mono);font-size:clamp(34px,7vw,56px);font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+  .stat .l{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  .rule{height:1px;background:var(--line);margin:30px 0}
+  .list{display:flex;flex-direction:column}
+  .row{display:flex;align-items:baseline;gap:14px;padding:13px 0;border-bottom:1px solid var(--hair);
+    text-decoration:none;color:inherit}
+  .row:hover{background:rgba(200,65,43,.05)}
+  .row .repo{font-family:var(--mono);font-size:13px;font-weight:700;min-width:190px;color:var(--ink)}
+  .row .ttl{font-size:14px;color:var(--muted);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .badge{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border:1px solid var(--ink);white-space:nowrap}
+  .badge.merged{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+  .badge.open{color:var(--ink)}
+  .badge.closed{color:var(--faint);border-color:var(--hair)}
+  .blocks{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}
+  @media(max-width:640px){.blocks{grid-template-columns:1fr}}
+  .block{border:1px solid var(--ink);padding:20px}
+  .block h3{font-size:15px;margin-bottom:6px}
+  .block p{font-size:13px;color:var(--muted);margin-bottom:10px}
+  .block a{font-family:var(--mono);font-size:12px;color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent)}
+  footer{margin-top:40px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.05em}
+  .err{font-family:var(--mono);font-size:12px;color:var(--accent)}
+  .skel{color:var(--faint);font-family:var(--mono);font-size:13px;padding:20px 0}
+</style>
+</head>
+<body>
+<span class="corner tr">+</span><span class="corner bl">+</span>
+<div class="wrap">
+  <div class="eyebrow">live · pulled from github · numbers i don't control</div>
+  <h1><span id="total">—</span> PRs into real OSS<br><span class="merged"><span id="merged">—</span> merged</span></h1>
+  <p class="lede">19, Tokyo. I'm localizing the open-source ecosystem into Japanese, one merged pull request at a time. This page reads straight from GitHub's API — I can't fake these.</p>
+  <p class="sub" id="updated">reading github…</p>
+
+  <div class="stats">
+    <div class="stat"><div class="n" id="s-total">—</div><div class="l">pull requests</div></div>
+    <div class="stat"><div class="n" id="s-merged">—</div><div class="l">merged</div></div>
+    <div class="stat"><div class="n" id="s-repos">—</div><div class="l">projects</div></div>
+  </div>
+
+  <div class="rule"></div>
+  <div class="list" id="list"><div class="skel">loading from github…</div></div>
+
+  <div class="blocks">
+    <div class="block">
+      <h3>The uncomfortable part</h3>
+      <p>I've built 128 things with AI in 4 months — then audited every one. Most are dead. I keep the graveyard public.</p>
+      <a href="https://builder-archive.vercel.app" target="_blank" rel="noopener">builder-archive →</a>
+    </div>
+    <div class="block">
+      <h3>Need your dev tool ready for Japan?</h3>
+      <p>特商法, IME, locale routing, JPY — the gaps analytics never show. I map them and ship the fix.</p>
+      <a href="https://glovrex.com" target="_blank" rel="noopener">glovrex.com →</a>
+    </div>
+  </div>
+
+  <footer>github.com/greymoth-jp · this page updates itself every time a maintainer merges my code.</footer>
+</div>
+
+<script>
+const USER = "greymoth-jp";
+const repoOf = u => { const m = u.match(/github\.com\/([^/]+\/[^/]+)\/pull/); return m ? m[1] : "?"; };
+// ponytail: unauthenticated GitHub search, 10 req/min/IP — plenty for one page load.
+fetch(`https://api.github.com/search/issues?q=author:${USER}+type:pr&sort=created&order=desc&per_page=100`,
+  {headers:{Accept:"application/vnd.github+json"}})
+  .then(r => r.ok ? r.json() : Promise.reject(r.status))
+  .then(d => {
+    const items = (d.items||[]).map(it => ({
+      repo: repoOf(it.html_url), title: it.title, url: it.html_url,
+      status: it.pull_request && it.pull_request.merged_at ? "merged" : (it.state === "open" ? "open" : "closed")
+    }));
+    const merged = items.filter(i => i.status === "merged").length;
+    const repos = new Set(items.map(i => i.repo)).size;
+    set("total", items.length); set("s-total", items.length);
+    set("merged", merged); set("s-merged", merged); set("s-repos", repos);
+    document.getElementById("updated").textContent = "read from github · " + new Date().toISOString().slice(0,10);
+    const list = document.getElementById("list");
+    list.innerHTML = items.length ? "" : '<div class="skel">no PRs found yet.</div>';
+    for (const i of items) {
+      const a = document.createElement("a");
+      a.className = "row"; a.href = i.url; a.target = "_blank"; a.rel = "noopener";
+      a.innerHTML = `<span class="repo">${i.repo}</span><span class="ttl">${esc(i.title)}</span><span class="badge ${i.status}">${i.status}</span>`;
+      list.appendChild(a);
+    }
+  })
+  .catch(e => {
+    document.getElementById("updated").textContent = "";
+    document.getElementById("list").innerHTML =
+      `<div class="err">github rate-limited this view (${e}). refresh in a minute — the data is real, github just throttles anonymous reads.</div>`;
+  });
+function set(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
+function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML;}
+</script>
+</body>
+</html>
