@@ -49,6 +49,16 @@
   footer{margin-top:40px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.05em}
   .err{font-family:var(--mono);font-size:12px;color:var(--accent)}
   .skel{color:var(--faint);font-family:var(--mono);font-size:13px;padding:20px 0}
+  .follow{border:1px solid var(--ink);background:rgba(200,65,43,.04);padding:24px;margin-top:34px}
+  .follow h3{font-size:clamp(17px,3vw,21px);margin-bottom:8px;letter-spacing:-.01em}
+  .follow p{font-size:13.5px;color:var(--muted);max-width:62ch;margin-bottom:16px}
+  .follow-actions{display:flex;gap:12px;flex-wrap:wrap}
+  .btn-follow{display:inline-flex;align-items:center;font-family:var(--mono);font-size:13px;font-weight:700;
+    text-decoration:none;color:var(--paper);background:var(--accent);border:1px solid var(--accent);padding:11px 18px}
+  .btn-follow:hover{background:#a8341f;border-color:#a8341f}
+  .btn-ghost{display:inline-flex;align-items:center;font-family:var(--mono);font-size:13px;
+    text-decoration:none;color:var(--ink);border:1px solid var(--ink);padding:11px 18px}
+  .btn-ghost:hover{background:var(--ink);color:var(--paper)}
 </style>
 </head>
 <body>
@@ -94,7 +104,16 @@
     </div>
   </div>
 
-  <footer>github.com/greymoth-jp · this page updates itself every time a maintainer merges my code.</footer>
+  <div class="follow">
+    <h3>This list keeps growing — follow and you'll see it</h3>
+    <p>Every new tool I ship lands as a public GitHub repo first, so a follow is a launch notification — no email, no algorithm deciding whether you see it. This is the audience I'm building for: people who can verify the work in one click.</p>
+    <div class="follow-actions">
+      <a class="btn-follow" href="https://github.com/greymoth-jp" target="_blank" rel="noopener">★ Follow @greymoth-jp on GitHub</a>
+      <a class="btn-ghost" href="https://greymoth-jp.github.io" target="_blank" rel="noopener">Everything in one place → the hub</a>
+    </div>
+  </div>
+
+  <footer>github.com/greymoth-jp · this page updates itself every time a maintainer merges my code · <a href="https://greymoth-jp.github.io" style="color:var(--accent);text-decoration:none">follow for launches</a></footer>
 </div>
 
 <script>
