@@ -85,7 +85,50 @@
 <script>
 const USER = "greymoth-jp";
 const repoOf = u => { const m = u.match(/github\.com\/([^/]+\/[^/]+)\/pull/); return m ? m[1] : "?"; };
-// ponytail: unauthenticated GitHub search, 10 req/min/IP — plenty for one page load.
+
+// Verified snapshot (gh-confirmed 2026-06-25). Shown only if GitHub throttles
+// the anonymous browser read. Every line below is a real PR — links resolve to
+// GitHub, where anyone can check the state themselves. Live fetch overrides this.
+const FALLBACK = [
+  {repo:"janhq/jan", title:"i18n(ja): complete common.json translations and fix terminology", url:"https://github.com/janhq/jan/pull/8349", status:"merged"},
+  {repo:"janhq/jan", title:"i18n(ja): update Japanese translations", url:"https://github.com/janhq/jan/pull/8348", status:"merged"},
+  {repo:"medusajs/medusa", title:"i18n(ja): complete dashboard translations — fill 511 missing keys", url:"https://github.com/medusajs/medusa/pull/15839", status:"open"},
+  {repo:"appwrite/appwrite", title:"i18n(ja): fill 48 missing email translation keys", url:"https://github.com/appwrite/appwrite/pull/12677", status:"open"},
+  {repo:"usememos/memos", title:"i18n(ja): complete Japanese translations — fill 24 missing keys", url:"https://github.com/usememos/memos/pull/6048", status:"open"},
+  {repo:"ToolJet/ToolJet", title:"feat(i18n): add Japanese (ja) translation", url:"https://github.com/ToolJet/ToolJet/pull/16958", status:"open"},
+  {repo:"AppFlowy-IO/AppFlowy", title:"feat(i18n): add missing Japanese (ja) translations for the sign-in flow", url:"https://github.com/AppFlowy-IO/AppFlowy/pull/8833", status:"open"},
+  {repo:"ghostfolio/ghostfolio", title:"feat(i18n): add Japanese (ja) translations", url:"https://github.com/ghostfolio/ghostfolio/pull/7132", status:"open"},
+  {repo:"karakeep-app/karakeep", title:"feat(i18n): add missing Japanese (ja) translations (keyboard shortcuts, admin embeddings)", url:"https://github.com/karakeep-app/karakeep/pull/2903", status:"open"},
+  {repo:"anomalyco/opencode", title:"fix(ui): guard custom-answer textarea against IME composition Enter", url:"https://github.com/anomalyco/opencode/pull/33727", status:"open"},
+  {repo:"hoppscotch/hoppscotch", title:"feat(i18n): Japanese (ja) translations — collection strings", url:"https://github.com/hoppscotch/hoppscotch/pull/6471", status:"open"},
+  {repo:"hoppscotch/hoppscotch", title:"feat(i18n): Japanese (ja) translations — error strings", url:"https://github.com/hoppscotch/hoppscotch/pull/6470", status:"open"},
+  {repo:"hoppscotch/hoppscotch", title:"feat(i18n): Japanese (ja) translations — request/response strings", url:"https://github.com/hoppscotch/hoppscotch/pull/6469", status:"open"},
+  {repo:"hoppscotch/hoppscotch", title:"feat(i18n): Japanese (ja) translations — environment strings", url:"https://github.com/hoppscotch/hoppscotch/pull/6468", status:"open"},
+  {repo:"hoppscotch/hoppscotch", title:"feat(i18n): Japanese (ja) translations — action/app/auth strings", url:"https://github.com/hoppscotch/hoppscotch/pull/6467", status:"open"},
+  {repo:"Librum-Reader/Librum", title:"feat(i18n): add Japanese (ja) translation", url:"https://github.com/Librum-Reader/Librum/pull/226", status:"open"},
+  {repo:"janhq/jan", title:"i18n(ja): complete settings.json translations", url:"https://github.com/janhq/jan/pull/8352", status:"open"},
+  {repo:"betterlytics/betterlytics", title:"feat(i18n): add Japanese (ja) language support", url:"https://github.com/betterlytics/betterlytics/pull/982", status:"open"}
+];
+
+function render(items, sourceLabel) {
+  const merged = items.filter(i => i.status === "merged").length;
+  const repos = new Set(items.map(i => i.repo)).size;
+  set("total", items.length); set("s-total", items.length);
+  set("merged", merged); set("s-merged", merged); set("s-repos", repos);
+  document.getElementById("updated").textContent = sourceLabel;
+  const list = document.getElementById("list");
+  list.innerHTML = items.length ? "" : '<div class="skel">no PRs found yet.</div>';
+  // merged first, then open, then closed
+  const order = {merged:0, open:1, closed:2};
+  items.slice().sort((a,b) => (order[a.status]-order[b.status])).forEach(i => {
+    const a = document.createElement("a");
+    a.className = "row"; a.href = i.url; a.target = "_blank"; a.rel = "noopener";
+    a.innerHTML = `<span class="repo">${esc(i.repo)}</span><span class="ttl">${esc(i.title)}</span><span class="badge ${i.status}">${i.status}</span>`;
+    list.appendChild(a);
+  });
+}
+
+// ponytail: unauthenticated GitHub search, ~10 req/min/IP — plenty for one page load.
 fetch(`https://api.github.com/search/issues?q=author:${USER}+type:pr&sort=created&order=desc&per_page=100`,
   {headers:{Accept:"application/vnd.github+json"}})
   .then(r => r.ok ? r.json() : Promise.reject(r.status))
@@ -94,24 +137,12 @@ fetch(`https://api.github.com/search/issues?q=author:${USER}+type:pr&sort=create
       repo: repoOf(it.html_url), title: it.title, url: it.html_url,
       status: it.pull_request && it.pull_request.merged_at ? "merged" : (it.state === "open" ? "open" : "closed")
     }));
-    const merged = items.filter(i => i.status === "merged").length;
-    const repos = new Set(items.map(i => i.repo)).size;
-    set("total", items.length); set("s-total", items.length);
-    set("merged", merged); set("s-merged", merged); set("s-repos", repos);
-    document.getElementById("updated").textContent = "read from github · " + new Date().toISOString().slice(0,10);
-    const list = document.getElementById("list");
-    list.innerHTML = items.length ? "" : '<div class="skel">no PRs found yet.</div>';
-    for (const i of items) {
-      const a = document.createElement("a");
-      a.className = "row"; a.href = i.url; a.target = "_blank"; a.rel = "noopener";
-      a.innerHTML = `<span class="repo">${i.repo}</span><span class="ttl">${esc(i.title)}</span><span class="badge ${i.status}">${i.status}</span>`;
-      list.appendChild(a);
-    }
+    render(items, "read live from github · " + new Date().toISOString().slice(0,10));
   })
-  .catch(e => {
-    document.getElementById("updated").textContent = "";
-    document.getElementById("list").innerHTML =
-      `<div class="err">github rate-limited this view (${e}). refresh in a minute — the data is real, github just throttles anonymous reads.</div>`;
+  .catch(() => {
+    // GitHub throttled the anonymous read. Fall back to the gh-verified snapshot
+    // so the page is never empty — the numbers are real, every PR links out.
+    render(FALLBACK, "github throttled this anonymous read — showing verified snapshot (2026-06-25). every PR links to github; check the state yourself.");
   });
 function set(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
 function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML;}
