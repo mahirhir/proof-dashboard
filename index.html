@@ -15,6 +15,31 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="greymoth — merged into real OSS" />
 <meta name="twitter:description" content="PRs merged into named OSS, read live from the GitHub API. The one credential I can't fake." />
+
+<!-- FAQ structured data — direct answers for AI answer engines (counts stay drift-safe; live count is on the page) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What open-source projects has greymoth had pull requests merged into?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Pull requests merged into named open-source projects including medusajs/medusa, janhq/jan, and usememos/memos — all Japanese (ja) internationalization. The current merged and in-review counts are read live from the GitHub API and shown on this page." }
+    },
+    {
+      "@type": "Question",
+      "name": "Are greymoth's merged pull requests verifiable?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. Each is a public GitHub pull-request page you can open yourself. This dashboard reads the merged and open PRs live from the GitHub API — nothing is hand-typed, and the status of each can be checked at its source." }
+    },
+    {
+      "@type": "Question",
+      "name": "What kind of open-source contributions are they?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Japanese localization (i18n): filling missing locale keys and fixing terminology in tools that real people run in production, accepted by each project's own maintainers." }
+    }
+  ]
+}
+</script>
 <style>
   :root{
     --paper:#FAF7F0; --ink:#1A1A1A; --muted:#6b6b6b; --faint:#9a958c;
