@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>greymoth — live proof</title>
-<meta name="description" content="Merged pull requests into real open-source products, pulled live from GitHub. Numbers I don't control." />
+<title>greymoth — merged into real OSS</title>
+<meta name="description" content="Pull requests merged into named open-source projects (medusajs/medusa, janhq/jan), pulled live from GitHub. The signal a maintainer accepted — numbers I don't control." />
 <style>
   :root{
     --paper:#FAF7F0; --ink:#1A1A1A; --muted:#6b6b6b; --faint:#9a958c;
@@ -20,8 +20,10 @@
   .wrap{max-width:880px;margin:0 auto}
   .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
     color:var(--accent);margin-bottom:28px}
-  h1{font-size:clamp(40px,9vw,92px);line-height:.98;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+  h1{font-size:clamp(34px,7.2vw,72px);line-height:1.0;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
   h1 .merged{color:var(--accent)}
+  h1 .review{font-size:clamp(15px,2.6vw,24px);font-weight:700;color:var(--muted);display:block;margin-top:12px;letter-spacing:-.01em}
+  h1 .projects{font-size:clamp(20px,4vw,40px);font-weight:800;display:block;line-height:1.05;margin-top:4px}
   .lede{font-size:clamp(15px,2.2vw,19px);color:var(--ink);max-width:60ch;margin:14px 0 6px}
   .sub{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
   .stats{display:flex;gap:clamp(20px,5vw,56px);margin:30px 0 8px;flex-wrap:wrap}
@@ -53,15 +55,28 @@
 <span class="corner tr">+</span><span class="corner bl">+</span>
 <div class="wrap">
   <div class="eyebrow">live · pulled from github · numbers i don't control</div>
-  <h1><span id="total">—</span> PRs into real OSS<br><span class="merged"><span id="merged">—</span> merged</span></h1>
-  <p class="lede">Based in Tokyo. I localize the open-source ecosystem into Japanese, one merged pull request at a time. This page reads straight from GitHub's API — I can't fake these.</p>
+  <h1><span class="merged"><span id="merged">—</span> merged</span> into<span class="projects" id="merged-projects">real OSS</span><span class="review">+ <span id="open">—</span> more in review</span></h1>
+  <p class="lede">Based in Tokyo. I localize the open-source ecosystem into Japanese — and the only number that counts is the one a maintainer accepted. A merge means real reviewers ran and merged my code; this page reads it straight from GitHub's API, so I can't fake it.</p>
   <p class="sub" id="updated">reading github…</p>
+  <p class="sub" style="margin-top:8px;color:var(--faint)">Proof for engineers: a merged PR into a named project is something maintainers can verify in one click. That's deliberate — it's the audience I'm trying to reach.</p>
 
   <div class="stats">
-    <div class="stat"><div class="n" id="s-total">—</div><div class="l">pull requests</div></div>
-    <div class="stat"><div class="n" id="s-merged">—</div><div class="l">merged</div></div>
-    <div class="stat"><div class="n" id="s-repos">—</div><div class="l">projects</div></div>
+    <div class="stat"><div class="n" style="color:var(--accent)" id="s-merged">—</div><div class="l">merged &amp; live</div></div>
+    <div class="stat"><div class="n" id="s-merged-repos">—</div><div class="l">projects merged into</div></div>
+    <div class="stat"><div class="n" id="s-open">—</div><div class="l">in review</div></div>
   </div>
+
+  <p class="sub" style="margin-top:18px">
+    Each merge is click-through-verifiable on GitHub:
+    <a href="https://github.com/medusajs/medusa/pull/15839" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">medusajs/medusa #15839</a> ·
+    <a href="https://github.com/janhq/jan/pull/8349" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">janhq/jan #8349</a> ·
+    <a href="https://github.com/janhq/jan/pull/8348" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">#8348</a>.
+  </p>
+  <p class="sub" style="margin-top:8px">
+    Also shipped past Apple review →
+    <a href="https://apps.apple.com/app/id6779623465" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:underline">TANE on the iOS App Store</a>
+    (live listing, anyone can open it).
+  </p>
 
   <div class="rule"></div>
   <div class="list" id="list"><div class="skel">loading from github…</div></div>
@@ -92,7 +107,7 @@ const repoOf = u => { const m = u.match(/github\.com\/([^/]+\/[^/]+)\/pull/); re
 const FALLBACK = [
   {repo:"janhq/jan", title:"i18n(ja): complete common.json translations and fix terminology", url:"https://github.com/janhq/jan/pull/8349", status:"merged"},
   {repo:"janhq/jan", title:"i18n(ja): update Japanese translations", url:"https://github.com/janhq/jan/pull/8348", status:"merged"},
-  {repo:"medusajs/medusa", title:"i18n(ja): complete dashboard translations — fill 511 missing keys", url:"https://github.com/medusajs/medusa/pull/15839", status:"open"},
+  {repo:"medusajs/medusa", title:"i18n(ja): complete dashboard translations — fill 511 missing keys", url:"https://github.com/medusajs/medusa/pull/15839", status:"merged"},
   {repo:"appwrite/appwrite", title:"i18n(ja): fill 48 missing email translation keys", url:"https://github.com/appwrite/appwrite/pull/12677", status:"open"},
   {repo:"usememos/memos", title:"i18n(ja): complete Japanese translations — fill 24 missing keys", url:"https://github.com/usememos/memos/pull/6048", status:"open"},
   {repo:"ToolJet/ToolJet", title:"feat(i18n): add Japanese (ja) translation", url:"https://github.com/ToolJet/ToolJet/pull/16958", status:"open"},
@@ -111,10 +126,18 @@ const FALLBACK = [
 ];
 
 function render(items, sourceLabel) {
-  const merged = items.filter(i => i.status === "merged").length;
-  const repos = new Set(items.map(i => i.repo)).size;
-  set("total", items.length); set("s-total", items.length);
-  set("merged", merged); set("s-merged", merged); set("s-repos", repos);
+  const mergedItems = items.filter(i => i.status === "merged");
+  const merged = mergedItems.length;
+  const open = items.filter(i => i.status === "open").length;
+  const mergedRepos = [...new Set(mergedItems.map(i => i.repo))];
+  // Hero: lead with the validated signal — merged into NAMED real projects.
+  set("merged", merged);
+  set("open", open);
+  set("s-merged", merged);
+  set("s-merged-repos", mergedRepos.length);
+  set("s-open", open);
+  const projectsEl = document.getElementById("merged-projects");
+  if (projectsEl) projectsEl.textContent = mergedRepos.length ? mergedRepos.join(" + ") : "real OSS";
   document.getElementById("updated").textContent = sourceLabel;
   const list = document.getElementById("list");
   list.innerHTML = items.length ? "" : '<div class="skel">no PRs found yet.</div>';
