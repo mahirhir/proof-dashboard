@@ -4,14 +4,14 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>greymoth — merged into real OSS</title>
-<meta name="description" content="Pull requests merged into named open-source projects (medusajs/medusa, janhq/jan, usememos/memos), pulled live from the GitHub API. The signal a maintainer accepted — numbers I don't control." />
+<meta name="description" content="Pull requests merged into named open-source projects — vite, ant-design, raylib, nestjs, gin, medusa, scrapy and more — read live from the GitHub API. A mix of Japanese localization and upstream bug fixes. The signal a maintainer accepted, not numbers I control." />
 <link rel="canonical" href="https://greymoth-jp.github.io/proof-dashboard/" />
 
 <!-- Open Graph / Twitter — so shared links unfurl with a real card -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://greymoth-jp.github.io/proof-dashboard/" />
 <meta property="og:title" content="greymoth — merged into real OSS" />
-<meta property="og:description" content="Pull requests merged into named OSS — medusa, jan, memos — read live from the GitHub API. The signal a maintainer accepted, not numbers I control." />
+<meta property="og:description" content="Pull requests merged into named OSS — vite, ant-design, raylib, nestjs, gin, medusa — read live from the GitHub API. The signal a maintainer accepted, not numbers I control." />
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="greymoth — merged into real OSS" />
 <meta name="twitter:description" content="PRs merged into named OSS, read live from the GitHub API. The one credential I can't fake." />
@@ -25,7 +25,7 @@
     {
       "@type": "Question",
       "name": "What open-source projects has greymoth had pull requests merged into?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Pull requests merged into named open-source projects including medusajs/medusa, janhq/jan, and usememos/memos — all Japanese (ja) internationalization. The current merged and in-review counts are read live from the GitHub API and shown on this page." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Pull requests merged into named open-source projects including vitejs/vite, ant-design, raysan5/raylib, nestjs/nest, gin-gonic/gin, scrapy, hyperium/hyper, medusajs/medusa, and janhq/jan. The current merged and in-review counts are read live from the GitHub API and shown on this page." }
     },
     {
       "@type": "Question",
@@ -35,7 +35,7 @@
     {
       "@type": "Question",
       "name": "What kind of open-source contributions are they?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Japanese localization (i18n): filling missing locale keys and fixing terminology in tools that real people run in production, accepted by each project's own maintainers." }
+      "acceptedAnswer": { "@type": "Answer", "text": "A mix of upstream bug fixes (things like IME-composition input handling, parsing and encoding edge cases) and Japanese localization — filling missing locale keys and fixing terminology — in tools that real people run in production, accepted by each project's own maintainers." }
     }
   ]
 }
@@ -170,7 +170,7 @@
   <header>
     <p class="eyebrow">live · pulled from github · numbers i don't control</p>
     <h1><span class="merged"><span id="merged">—</span> merged</span><span class="projects" id="merged-projects">real OSS</span><span class="review">+ <span id="open">—</span> more in review</span></h1>
-    <p class="lede">Based in Tokyo. I localize the open-source ecosystem into Japanese — and the only number that counts is the one a maintainer accepted. A merge means real reviewers ran and merged my code; this page reads it straight from GitHub's API, so I can't fake it.</p>
+    <p class="lede">Based in Tokyo. I fix bugs and fill the Japanese gaps in open-source tools other people depend on — and the only number that counts is the one a maintainer accepted. A merge means real reviewers ran my code and shipped it; this page reads that straight from GitHub's API, so I can't fake it.</p>
     <p class="sub" id="updated">reading github…</p>
     <p class="sub note">Proof for engineers: a merged PR into a named project is something maintainers can verify in one click. That's deliberate — it's the audience I'm trying to reach.</p>
   </header>
@@ -183,9 +183,9 @@
 
   <p class="sub">
     Each merge is click-through-verifiable on GitHub:
-    <a href="https://github.com/medusajs/medusa/pull/15839" target="_blank" rel="noopener">medusajs/medusa #15839</a> ·
-    <a href="https://github.com/janhq/jan/pull/8349" target="_blank" rel="noopener">janhq/jan #8349</a> ·
-    <a href="https://github.com/janhq/jan/pull/8348" target="_blank" rel="noopener">#8348</a>.
+    <a href="https://github.com/vitejs/vite/pull/22781" target="_blank" rel="noopener">vitejs/vite #22781</a> ·
+    <a href="https://github.com/raysan5/raylib/pull/5938" target="_blank" rel="noopener">raysan5/raylib #5938</a> ·
+    <a href="https://github.com/medusajs/medusa/pull/15839" target="_blank" rel="noopener">medusajs/medusa #15839</a>.
   </p>
   <p class="sub">
     Also shipped past Apple review →
@@ -234,48 +234,96 @@
 const USER = "greymoth-jp";
 const repoOf = u => { const m = u.match(/github\.com\/([^/]+\/[^/]+)\/pull/); return m ? m[1] : "?"; };
 
-// Verified snapshot (gh-confirmed 2026-06-25). Shown only if GitHub throttles
-// the anonymous browser read. Every line below is a real PR — links resolve to
-// GitHub, where anyone can check the state themselves. Live fetch overrides this.
-const FALLBACK = [
-  {repo:"janhq/jan", title:"i18n(ja): complete common.json translations and fix terminology", url:"https://github.com/janhq/jan/pull/8349", status:"merged"},
-  {repo:"janhq/jan", title:"i18n(ja): update Japanese translations", url:"https://github.com/janhq/jan/pull/8348", status:"merged"},
-  {repo:"medusajs/medusa", title:"i18n(ja): complete dashboard translations — fill 511 missing keys", url:"https://github.com/medusajs/medusa/pull/15839", status:"merged"},
-  {repo:"appwrite/appwrite", title:"i18n(ja): fill 48 missing email translation keys", url:"https://github.com/appwrite/appwrite/pull/12677", status:"open"},
-  {repo:"usememos/memos", title:"i18n(ja): complete Japanese translations — fill 24 missing keys", url:"https://github.com/usememos/memos/pull/6048", status:"open"},
-  {repo:"ToolJet/ToolJet", title:"feat(i18n): add Japanese (ja) translation", url:"https://github.com/ToolJet/ToolJet/pull/16958", status:"open"},
-  {repo:"AppFlowy-IO/AppFlowy", title:"feat(i18n): add missing Japanese (ja) translations for the sign-in flow", url:"https://github.com/AppFlowy-IO/AppFlowy/pull/8833", status:"open"},
-  {repo:"ghostfolio/ghostfolio", title:"feat(i18n): add Japanese (ja) translations", url:"https://github.com/ghostfolio/ghostfolio/pull/7132", status:"open"},
-  {repo:"karakeep-app/karakeep", title:"feat(i18n): add missing Japanese (ja) translations (keyboard shortcuts, admin embeddings)", url:"https://github.com/karakeep-app/karakeep/pull/2903", status:"open"},
-  {repo:"anomalyco/opencode", title:"fix(ui): guard custom-answer textarea against IME composition Enter", url:"https://github.com/anomalyco/opencode/pull/33727", status:"open"},
-  {repo:"hoppscotch/hoppscotch", title:"feat(i18n): Japanese (ja) translations — collection strings", url:"https://github.com/hoppscotch/hoppscotch/pull/6471", status:"open"},
-  {repo:"hoppscotch/hoppscotch", title:"feat(i18n): Japanese (ja) translations — error strings", url:"https://github.com/hoppscotch/hoppscotch/pull/6470", status:"open"},
-  {repo:"hoppscotch/hoppscotch", title:"feat(i18n): Japanese (ja) translations — request/response strings", url:"https://github.com/hoppscotch/hoppscotch/pull/6469", status:"open"},
-  {repo:"hoppscotch/hoppscotch", title:"feat(i18n): Japanese (ja) translations — environment strings", url:"https://github.com/hoppscotch/hoppscotch/pull/6468", status:"open"},
-  {repo:"hoppscotch/hoppscotch", title:"feat(i18n): Japanese (ja) translations — action/app/auth strings", url:"https://github.com/hoppscotch/hoppscotch/pull/6467", status:"open"},
-  {repo:"Librum-Reader/Librum", title:"feat(i18n): add Japanese (ja) translation", url:"https://github.com/Librum-Reader/Librum/pull/226", status:"open"},
-  {repo:"janhq/jan", title:"i18n(ja): complete settings.json translations", url:"https://github.com/janhq/jan/pull/8352", status:"open"},
-  {repo:"betterlytics/betterlytics", title:"feat(i18n): add Japanese (ja) language support", url:"https://github.com/betterlytics/betterlytics/pull/982", status:"open"}
+// Verified snapshot (gh-confirmed 2026-06-30). Shown if GitHub throttles the
+// anonymous browser read, so the page is never empty or wrong. Counts below are
+// the real totals as of that date; every row links to GitHub, where anyone can
+// check the state. A successful live read overrides all of this.
+const SNAPSHOT = { date: "2026-06-30", merged: 56, open: 192, repos: 50 };
+const MERGED = [
+  {"repo": "EvanHahn/HumanizeDuration.js", "title": "fix: use singular Lithuanian form for counts like 101 and 201", "url": "https://github.com/EvanHahn/HumanizeDuration.js/pull/237", "status": "merged"},
+  {"repo": "TanStack/table", "title": "fix(table-core): auto-remove empty arrHas filter values like the other array filters", "url": "https://github.com/TanStack/table/pull/6356", "status": "merged"},
+  {"repo": "TriliumNext/Trilium", "title": "fix(board): ignore IME composition Enter when editing card and column titles", "url": "https://github.com/TriliumNext/Trilium/pull/10315", "status": "merged"},
+  {"repo": "agronholm/anyio", "title": "Fix CapacityLimiter(math.inf) raising TypeError outside an event loop", "url": "https://github.com/agronholm/anyio/pull/1189", "status": "merged"},
+  {"repo": "ant-design/ant-design", "title": "fix: correct ja-JP Typography expand/collapse labels", "url": "https://github.com/ant-design/ant-design/pull/58563", "status": "merged"},
+  {"repo": "birchill/normal-jp", "title": "Fix ー expansion for katakana ヒ and ビ", "url": "https://github.com/birchill/normal-jp/pull/94", "status": "merged"},
+  {"repo": "bradymholt/cRonstrue", "title": "fix(sl): remove stray %s placeholder from last-day-of-month phrase", "url": "https://github.com/bradymholt/cRonstrue/pull/398", "status": "merged"},
+  {"repo": "bradymholt/cRonstrue", "title": "fix(ja): scope day-of-month step description to a month", "url": "https://github.com/bradymholt/cRonstrue/pull/397", "status": "merged"},
+  {"repo": "chakra-ui/zag", "title": "fix(color-picker): ignore Enter during IME composition in channel input", "url": "https://github.com/chakra-ui/zag/pull/3198", "status": "merged"},
+  {"repo": "console-rs/indicatif", "title": "Fix HumanFloatCount dropping the fractional part", "url": "https://github.com/console-rs/indicatif/pull/816", "status": "merged"},
+  {"repo": "dreamerslab/node.inflection", "title": "fix: singularize 'analyses' to 'analysis' instead of 'analyasis'", "url": "https://github.com/dreamerslab/node.inflection/pull/125", "status": "merged"},
+  {"repo": "enricoros/big-AGI", "title": "Diagrams: skip IME composition Enter in custom instruction", "url": "https://github.com/enricoros/big-AGI/pull/1145", "status": "merged"},
+  {"repo": "forzagreen/n2words", "title": "fix(sr-Cyrl-RS,sr-Latn-RS): feminine number words before -arda scale words", "url": "https://github.com/forzagreen/n2words/pull/413", "status": "merged"},
+  {"repo": "ghostfolio/ghostfolio", "title": "Task/set up language localization for Japanese", "url": "https://github.com/ghostfolio/ghostfolio/pull/7132", "status": "merged"},
+  {"repo": "gin-gonic/gin", "title": "docs: fix `BindXML` comment referencing nonexistent `binding.BindXML`", "url": "https://github.com/gin-gonic/gin/pull/4717", "status": "merged"},
+  {"repo": "hustcc/timeago.js", "title": "fix(nl): use 'over' instead of 'binnen' for future time strings", "url": "https://github.com/hustcc/timeago.js/pull/287", "status": "merged"},
+  {"repo": "hustcc/timeago.js", "title": "fix(ja): use 後 instead of 以内 for future time strings", "url": "https://github.com/hustcc/timeago.js/pull/285", "status": "merged"},
+  {"repo": "hyperium/hyper", "title": "fix(h1): append duplicate trailer values when encoding (match #4107)", "url": "https://github.com/hyperium/hyper/pull/4118", "status": "merged"},
+  {"repo": "image-js/image-js", "title": "fix: add resolution to BMP format", "url": "https://github.com/image-js/image-js/pull/828", "status": "merged"},
+  {"repo": "image-rs/image", "title": "Only reject >256 ICO color planes in strict mode (match bits_per_pixel)", "url": "https://github.com/image-rs/image/pull/3056", "status": "merged"},
+  {"repo": "janhq/jan", "title": "i18n(ja): complete settings.json translations (#8264)", "url": "https://github.com/janhq/jan/pull/8352", "status": "merged"},
+  {"repo": "janhq/jan", "title": "i18n(ja): complete common.json translations and fix terminology (#8264)", "url": "https://github.com/janhq/jan/pull/8349", "status": "merged"},
+  {"repo": "janhq/jan", "title": "i18n(ja): update Japanese translations (#8264)", "url": "https://github.com/janhq/jan/pull/8348", "status": "merged"},
+  {"repo": "js-joda/js-joda", "title": "Fix toSecondsPart typo in Duration Flow type definition", "url": "https://github.com/js-joda/js-joda/pull/803", "status": "merged"},
+  {"repo": "karakeep-app/karakeep", "title": "feat(i18n): add missing Japanese (ja) translations (keyboard shortcuts, admin embeddings)", "url": "https://github.com/karakeep-app/karakeep/pull/2903", "status": "merged"},
+  {"repo": "langchain4j/langchain4j", "title": "Escape LIKE wildcards in Milvus containsString filter (match #5522/#5553)", "url": "https://github.com/langchain4j/langchain4j/pull/5600", "status": "merged"},
+  {"repo": "lepture/mistune", "title": "Fix emphasis multiple-of-3 rule mis-rendering (e.g. *foo***bar*)", "url": "https://github.com/lepture/mistune/pull/458", "status": "merged"},
+  {"repo": "lepture/wenmode", "title": "Fix emphasis flanking for Unicode marks and format characters", "url": "https://github.com/lepture/wenmode/pull/1", "status": "merged"},
+  {"repo": "locize/i18next-locize-backend", "title": "security: guard the getLastOfPath/setPath/pushPath walker against prototype pollution", "url": "https://github.com/locize/i18next-locize-backend/pull/360", "status": "merged"},
+  {"repo": "medusajs/medusa", "title": "i18n(ja): complete dashboard translations — fill 511 missing keys", "url": "https://github.com/medusajs/medusa/pull/15839", "status": "merged"},
+  {"repo": "nestjs/nest", "title": "fix(microservices): skip function-valued members in scanForClientHooks (match #17188)", "url": "https://github.com/nestjs/nest/pull/17207", "status": "merged"},
+  {"repo": "onyx-dot-app/onyx", "title": "fix(web): ignore IME composition Enter in ListFieldInput", "url": "https://github.com/onyx-dot-app/onyx/pull/12511", "status": "merged"},
+  {"repo": "payloadcms/payload", "title": "fix(ui): ignore the IME composition Enter in SearchInput", "url": "https://github.com/payloadcms/payload/pull/17138", "status": "merged"},
+  {"repo": "plouc/nivo", "title": "Apply AriaAttributes to Sunburst chart", "url": "https://github.com/plouc/nivo/pull/2841", "status": "merged"},
+  {"repo": "postcss/postcss", "title": "fix(node): always compute offset in positionBy() like rangeBy()", "url": "https://github.com/postcss/postcss/pull/2099", "status": "merged"},
+  {"repo": "primefaces/primelocale", "title": "Fix ja aria filterConstraint translation (成約 → 制約)", "url": "https://github.com/primefaces/primelocale/pull/266", "status": "merged"},
+  {"repo": "prometheus-operator/prometheus-operator", "title": "fix: load OpenStack SD TLS config into the asset store", "url": "https://github.com/prometheus-operator/prometheus-operator/pull/8656", "status": "merged"},
+  {"repo": "raysan5/raylib", "title": "[rcore] Add gamepad >= 0 lower-bound guard to six sibling functions (#5937 follow-up)", "url": "https://github.com/raysan5/raylib/pull/5938", "status": "merged"},
+  {"repo": "recharts/recharts", "title": "fix(DefaultLegendContent): omit empty value from legend icon aria-label", "url": "https://github.com/recharts/recharts/pull/7501", "status": "merged"},
+  {"repo": "rust-cli/config-rs", "title": "fix(ron): map u64 values to ValueKind::U64 instead of lossy I64 cast", "url": "https://github.com/rust-cli/config-rs/pull/761", "status": "merged"},
+  {"repo": "scrapy/scrapy", "title": "Fix request_to_curl() corrupting dict cookies with bytes keys/values", "url": "https://github.com/scrapy/scrapy/pull/7675", "status": "merged"},
+  {"repo": "sharkdp/bat", "title": "fix: avoid usize underflow in --list-languages at narrow terminal width", "url": "https://github.com/sharkdp/bat/pull/3812", "status": "merged"},
+  {"repo": "sharkdp/fd", "title": "Check --and patterns for path separators too (match #1975)", "url": "https://github.com/sharkdp/fd/pull/2036", "status": "merged"},
+  {"repo": "taoqf/node-html-parser", "title": "fix: serialize attributes through quoteAttribute in removeWhitespace", "url": "https://github.com/taoqf/node-html-parser/pull/310", "status": "merged"},
+  {"repo": "terraformer-js/terraformer", "title": "fix: check every line string when testing point within MultiLineString", "url": "https://github.com/terraformer-js/terraformer/pull/140", "status": "merged"},
+  {"repo": "time-rs/time", "title": "Restore lexer depth on the unclosed-bracket error path", "url": "https://github.com/time-rs/time/pull/791", "status": "merged"},
+  {"repo": "toss/es-toolkit", "title": "fix(compat/findLastIndex): treat NaN fromIndex as 0", "url": "https://github.com/toss/es-toolkit/pull/1834", "status": "merged"},
+  {"repo": "toss/es-toolkit", "title": "fix(compat): don't treat an own literal dotted key as a deep path in unset (match #1775)", "url": "https://github.com/toss/es-toolkit/pull/1808", "status": "merged"},
+  {"repo": "tusen-ai/naive-ui", "title": "fix(dynamic-tags): ignore Enter while IME composition is active", "url": "https://github.com/tusen-ai/naive-ui/pull/8115", "status": "merged"},
+  {"repo": "tusen-ai/naive-ui", "title": "fix(locale): translate weekPlaceholder in the Japanese locale", "url": "https://github.com/tusen-ai/naive-ui/pull/8114", "status": "merged"},
+  {"repo": "twentyhq/twenty", "title": "fix: ignore IME composition Enter in chat-thread and attachment rename inputs", "url": "https://github.com/twentyhq/twenty/pull/22270", "status": "merged"},
+  {"repo": "twigjs/twig.js", "title": "Fix `first` filter for numbers", "url": "https://github.com/twigjs/twig.js/pull/966", "status": "merged"},
+  {"repo": "usememos/memos", "title": "i18n(ja): complete Japanese translations — fill 24 missing keys", "url": "https://github.com/usememos/memos/pull/6048", "status": "merged"},
+  {"repo": "vanilla-extract-css/vanilla-extract", "title": "fix: treat boxOrdinalGroup as a unitless property", "url": "https://github.com/vanilla-extract-css/vanilla-extract/pull/1758", "status": "merged"},
+  {"repo": "vektah/gqlparser", "title": "Reject duplicate union member types", "url": "https://github.com/vektah/gqlparser/pull/442", "status": "merged"},
+  {"repo": "vitejs/vite", "title": "fix(server): handle malformed URI in indexHtmlMiddleware", "url": "https://github.com/vitejs/vite/pull/22781", "status": "merged"}
 ];
 
-function render(items, sourceLabel) {
-  const mergedItems = items.filter(i => i.status === "merged");
-  const merged = mergedItems.length;
-  const open = items.filter(i => i.status === "open").length;
-  const mergedRepos = [...new Set(mergedItems.map(i => i.repo))];
-  // Hero: lead with the validated signal — merged into NAMED real projects.
-  set("merged", merged);
-  set("open", open);
-  set("s-merged", merged);
-  set("s-merged-repos", mergedRepos.length);
-  set("s-open", open);
+// Recognizable names to lead the projects line with (only shown if actually merged).
+const NOTABLE = [
+  "vitejs/vite","ant-design/ant-design","raysan5/raylib","nestjs/nest","postcss/postcss",
+  "gin-gonic/gin","scrapy/scrapy","hyperium/hyper","sharkdp/bat","medusajs/medusa",
+  "payloadcms/payload","twentyhq/twenty","chakra-ui/zag","usememos/memos","ghostfolio/ghostfolio"
+];
+function projectsLine(repos){
+  if(!repos.length) return "real OSS";
+  const set = new Set(repos);
+  const lead = NOTABLE.filter(r => set.has(r)).slice(0,6).map(r => r.split("/").pop());
+  const more = repos.length - lead.length;
+  return lead.length ? lead.join(" · ") + (more > 0 ? ` · +${more} more` : "") : "real OSS";
+}
+
+function render(items, counts, sourceLabel){
+  set("merged", counts.merged);
+  set("open", counts.open);
+  set("s-merged", counts.merged);
+  set("s-merged-repos", counts.repos);
+  set("s-open", counts.open);
   const projectsEl = document.getElementById("merged-projects");
-  if (projectsEl) projectsEl.textContent = mergedRepos.length ? mergedRepos.join(" + ") : "real OSS";
+  if (projectsEl) projectsEl.textContent = projectsLine(counts.repoList || []);
   document.getElementById("updated").textContent = sourceLabel;
   const list = document.getElementById("list");
   list.innerHTML = items.length ? "" : '<div class="skel">no PRs found yet.</div>';
-  // merged first, then open, then closed
-  const order = {merged:0, open:1, closed:2};
+  const order = { merged:0, open:1, closed:2 };
   items.slice().sort((a,b) => (order[a.status]-order[b.status])).forEach(i => {
     const a = document.createElement("a");
     a.className = "row"; a.href = i.url; a.target = "_blank"; a.rel = "noopener";
@@ -284,22 +332,57 @@ function render(items, sourceLabel) {
   });
 }
 
-// ponytail: unauthenticated GitHub search, ~10 req/min/IP — plenty for one page load.
-fetch(`https://api.github.com/search/issues?q=author:${USER}+type:pr&sort=created&order=desc&per_page=100`,
-  {headers:{Accept:"application/vnd.github+json"}})
-  .then(r => r.ok ? r.json() : Promise.reject(r.status))
-  .then(d => {
-    const items = (d.items||[]).map(it => ({
-      repo: repoOf(it.html_url), title: it.title, url: it.html_url,
-      status: it.pull_request && it.pull_request.merged_at ? "merged" : (it.state === "open" ? "open" : "closed")
-    }));
-    render(items, "read live from github · " + new Date().toISOString().slice(0,10));
+function countsFrom(items){
+  const merged = items.filter(i => i.status === "merged");
+  return {
+    merged: merged.length,
+    open: items.filter(i => i.status === "open").length,
+    repoList: [...new Set(merged.map(i => i.repo))],
+    repos: new Set(merged.map(i => i.repo)).size
+  };
+}
+
+// Unauthenticated GitHub search is ~10 req/min/IP and capped at 100 results per
+// page, so we page through every PR (not just the most recent 100) to get the
+// true totals. If anything throttles, we fall back to the verified snapshot.
+async function loadLive(){
+  const per = 100;
+  let page = 1, all = [], total = Infinity;
+  while (all.length < total && page <= 11){
+    const r = await fetch(
+      `https://api.github.com/search/issues?q=author:${USER}+type:pr&sort=created&order=desc&per_page=${per}&page=${page}`,
+      { headers: { Accept: "application/vnd.github+json" } });
+    if (!r.ok) throw r.status;
+    const d = await r.json();
+    total = d.total_count;
+    const items = d.items || [];
+    all = all.concat(items);
+    if (items.length < per) break;
+    page++;
+  }
+  return all.map(it => ({
+    repo: repoOf(it.html_url), title: it.title, url: it.html_url,
+    status: it.pull_request && it.pull_request.merged_at ? "merged" : (it.state === "open" ? "open" : "closed")
+  }));
+}
+
+loadLive()
+  .then(items => {
+    const counts = countsFrom(items);
+    // Guard against a partial throttled read returning fewer merges than the
+    // verified snapshot — never show a number lower than what's already proven.
+    if (counts.merged < SNAPSHOT.merged) throw "partial read";
+    render(items, counts, "read live from github · " + new Date().toISOString().slice(0,10));
   })
   .catch(() => {
-    // GitHub throttled the anonymous read. Fall back to the gh-verified snapshot
-    // so the page is never empty — the numbers are real, every PR links out.
-    render(FALLBACK, "github throttled this anonymous read — showing verified snapshot (2026-06-25). every PR links to github; check the state yourself.");
+    const counts = {
+      merged: SNAPSHOT.merged, open: SNAPSHOT.open, repos: SNAPSHOT.repos,
+      repoList: [...new Set(MERGED.map(i => i.repo))]
+    };
+    render(MERGED, counts,
+      "github throttled this anonymous read — showing the verified snapshot from " + SNAPSHOT.date + ". every row links to github; check the state yourself.");
   });
+
 function set(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
 function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML;}
 </script>
